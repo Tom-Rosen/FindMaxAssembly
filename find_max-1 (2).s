@@ -32,10 +32,6 @@ Find_Max:
     movq    %rbx,       %rsi     #return value of rsi
     movq    %r12,       %rdi     #return value of rdi
 // reserve space for local variables
-/* make a table here the variables from 
- * your c code and the addresses used in assembly 
- *
-*/  
     movq    %rdi,       %rbx      #move length or rbx
     movq    %rbx,       -28(%rbp) #move length to stack
     movl    $0,         %edx      #move zero for maximum index
@@ -44,14 +40,7 @@ Find_Max:
     movl    %edx,       -12(%rbp) #move zero to stack
     movl    $1,         -16(%rbp) #set index one for counter
     movq    %rsi,       -24(%rbp) #move base of array to stack
-// thiis code calls Print_One_Number to 
-// print the number found in register %eax - use this code to debug 
-// replace $999 with a register or memory address you wish to print
     
-    //movl    -4(%rbp), %eax
-    //movl    (%rsi, %rdx, 4), %eax
-    //movl %eax, %edi
-    //call Print_One_Number@PLT
 // write your code to find the index of the maximum value here
 //SETUP FOR LOOP ITERATION 1
 Top_Of_Loop:
@@ -59,24 +48,16 @@ Top_Of_Loop:
     movq    $0,         %rdx      #set top 32 bits of rdx to zero
     movl    -8(%rbp),   %edx      #load index value in; i
     movl    (%rsi, %rdx, 4), %eax #load value pf arr[max_index] in to eax
-    //movl    %eax, %edi
-    //call    Print_One_Number@PLT
     movq    -24(%rbp),  %rsi      #reload array base
     movq    $0, %rdx              #set top bits to zero
     movl    -16(%rbp),  %edx      #load index in
     movl    (%rsi, %rdx, 4), %ecx #load array[i] in
-    //movl    %ecx, %edi
-    //call    Print_One_Number@PLT
     movq    -12(%rbp),  %rdx      #Literally does nothing important
    
 Loop_Condition:
     movl    -16(%rbp),  %edx      #Load counter into edx
-    //movl    %edx, %edi
-    //call    Print_One_Number@PLT
     movq    $0,         %rbx      #set top bits to zero
     movl    -28(%rbp),  %ebx      #move array length into ebx
-    //movl    %ebx, %edi
-    //call    Print_One_Number@PLT
 //if counter == array length stop loop, otherwise continue with loop
     cmp     %edx,       %ebx
     je      End
